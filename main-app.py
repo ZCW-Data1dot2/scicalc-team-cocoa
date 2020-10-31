@@ -67,8 +67,7 @@ def displayResult(x: float):
 #             print("That is not a valid input.")
 
 def performCalcLoop(calc):
-    total = ""
-    choice = ""
+    choice = "" #Set choice to a value so it can meet the condition below and start the loop
     while choice != 8:
         choice = calcMenu()
         if choice == 1:
@@ -80,6 +79,8 @@ def performCalcLoop(calc):
             print("Multiply")
         elif choice == 8:
             print("Calculator is now OFF")
+        else:
+            print("Invalid choice: Please enter a number between 1 - 8\n\n")
 
 # main start
 def main():
