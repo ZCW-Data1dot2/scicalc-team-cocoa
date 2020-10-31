@@ -13,7 +13,7 @@ def calcMenu():
     7) EXPONENTS
     8) EXIT
     """)
-    choice = int(input("PLEASE ENTER A NUMBER BETWEEN 1 - 8 \n"))
+    choice = int(input("PLEASE ENTER A NUMBER BETWEEN 1 - 8: \n"))
     return choice
 
 def getAddNum():
@@ -52,20 +52,34 @@ def getRoot():
 
 
 def displayResult(x: float):
-    print(x, "\n")
+    print(f"Output: {x}", "\n")
 
+
+# def performCalcLoop(calc):
+#     while True:
+#         choice = input("Operation? ")
+#         if choice == 'q':
+#             break  # user types q to quit calulator.
+#         elif choice == 'add':
+#             a, b = getAddNum()
+#             displayResult(calc.add(a, b))
+#         else:
+#             print("That is not a valid input.")
 
 def performCalcLoop(calc):
-    while True:
-        choice = input("Operation? ")
-        if choice == 'q':
-            break  # user types q to quit calulator.
-        elif choice == 'add':
+    total = ""
+    choice = ""
+    while choice != 8:
+        choice = calcMenu()
+        if choice == 1:
             a, b = getAddNum()
             displayResult(calc.add(a, b))
-        else:
-            print("That is not a valid input.")
-
+        elif choice == 2:
+            print("Subtract")
+        elif choice == 3:
+            print("Multiply")
+        elif choice == 8:
+            print("Calculator is now OFF")
 
 # main start
 def main():
