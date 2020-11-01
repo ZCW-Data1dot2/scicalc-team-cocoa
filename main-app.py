@@ -169,7 +169,7 @@ def performCalcLoop(calc):
         elif choice == 5:
             print("Square")
             a, b = getSquared()
-            displayResult(calc.squ(a, b, disp_mode))
+            displayResult(calc.squ(a, disp_mode))
         elif choice == 6:
             print("Square Root")
             a = getRoot()
