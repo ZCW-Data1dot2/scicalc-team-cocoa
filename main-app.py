@@ -74,7 +74,7 @@ def performCalcLoop(calc):
             a, b = getAddNum()
             displayResult(calc.add(a, b))
         elif choice == 2:
-            print("Subtract")
+            pass
         elif choice == 3:
             print("Multiply")
         elif choice == 8:
