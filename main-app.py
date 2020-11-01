@@ -38,11 +38,17 @@ def getDivNum():
 
 def getSquared():
     a = float(input("Enter the number that you want to square: \n"))
-    return a
+    b = float(input("Enter the second number that you want to square: \n"))
+    return a, b
 
 def getRoot():
     a = float(input("Enter the number that you want to find the square root of : \n"))
     return a
+
+def getExponent():
+    a = float(input("Enter the base number : \n"))
+    b = float(input("Enter the exponent number : \n"))
+    return a, b
 
 
 # def getTwoNumbers():
@@ -71,12 +77,33 @@ def performCalcLoop(calc):
     while choice != 8:
         choice = calcMenu()
         if choice == 1:
+            print("Add")
             a, b = getAddNum()
             displayResult(calc.add(a, b))
         elif choice == 2:
             print("Subtract")
+            a, b = getSubNum()
+            displayResult(calc.sub(a, b))
         elif choice == 3:
             print("Multiply")
+            a, b = getMultiNum()
+            displayResult(calc.mul(a,b))
+        elif choice == 4:
+            print("Divide")
+            a, b = getDivNum()
+            displayResult(calc.div(a, b))
+        elif choice == 5:
+            print("Square")
+            a, b = getSquared()
+            displayResult(calc.squ(a, b))
+        elif choice == 6:
+            print("Square Root")
+            a = getRoot()
+            displayResult(calc.roo(a))
+        elif choice == 7:
+            print("Exponent")
+            a, b = getExponent()
+            displayResult(calc.exp(a, b))
         elif choice == 8:
             print("Calculator is now OFF")
         else:
