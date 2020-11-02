@@ -107,6 +107,7 @@ def getExponent():
     return a, b
 
 def switchDisplayMode(user_choice, prev_mode):
+    global display_modes
     if user_choice == 'default':
         disp_mode = display_modes[prev_mode]
     else:
@@ -138,11 +139,11 @@ def displayResult(x: float):
 def performCalcLoop(calc):
     global val_in_mem
     disp_prev_num = 0
-    disp_ask = input("Set a display mode?\n")
+    disp_ask = input("Set a display mode? y or n\n")
     if disp_ask == '' or disp_ask == 'n':
         disp_inpt = 'default'
     elif disp_ask == 'y':
-        disp_inpt = input("Which mode" + str(display_modes))
+        disp_inpt = input("Which mode\n" + str(display_modes) + '\n')
     choice = "" #Set choice to a value so it can meet the condition below and start the loop
     while choice != 8:
         if disp_prev_num > 3:
@@ -157,36 +158,49 @@ def performCalcLoop(calc):
         elif choice == 2:
             print("Subtract")
             a, b = getSubNum()
-            displayResult(calc.sub(a, b, disp_mode))
+            result = calc.sub(a, b, disp_mode)
+            displayResult(result)
         elif choice == 3:
             print("Multiply")
             a, b = getMultiNum()
-            displayResult(calc.mul(a, b, disp_mode))
+            result = calc.mul(a, b, disp_mode)
+            displayResult(result)
         elif choice == 4:
             print("Divide")
             a, b = getDivNum()
-            displayResult(calc.div(a, b, disp_mode))
+            result = calc.div(a, b, disp_mode)
+            displayResult(result)
         elif choice == 5:
             print("Square")
             a, b = getSquared()
-            displayResult(calc.squ(a, disp_mode))
+            result = calc.squ(a, disp_mode)
+            displayResult(result)
         elif choice == 6:
             print("Square Root")
             a = getRoot()
-            displayResult(calc.roo(a, disp_mode))
+            result = calc.roo(a, disp_mode)
+            displayResult(result)
         elif choice == 7:
             print("Exponent")
             a, b = getExponent()
-            displayResult(calc.exp(a, b, disp_mode))
+            result = calc.exp(a, b, disp_mode)
+            displayResult(result)
         elif choice == 8:
             print("Calculator is now OFF")
         else:
-            print("Invalid choice: Please enter a number between 1 - 8\n\n")
+            print("Invalid choice: Please enter a number between 1 - 8\n")
         disp_prev_num += 1
         user_inpt = input()
         if user_inpt == 'm+':
-            val_in_mem = result
-            print(result)
+            if disp_mode == 'octal':
+                val_in_mem = int(result,8)
+            elif disp_mode == 'binary':
+                val_in_mem = int(result,2)
+            elif disp_mode == 'hexadecimal':
+                val_in_mem = int(result,16)
+            elif disp_mode == 'decimal':
+                val_in_mem = result
+        print(val_in_mem)
         if user_inpt == 'mc':
             val_in_mem = 0
 # main start
