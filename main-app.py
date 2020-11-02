@@ -1,11 +1,7 @@
 #import matplotlib.pyplot as plt
-
 from calculator import Calculator
-
 display_modes = ['decimal', 'binary', 'octal', 'hexadecimal']
 val_in_mem = 0
-
-
 def calcMenu():
     print("""
         TEAM COCOA CALCULATOR PROGRAM
@@ -17,12 +13,10 @@ def calcMenu():
     5) SQUARE
     6) SQUARE ROOT
     7) EXPONENTS
-    8) PIE TIME
-    9) EXIT
+    8) EXIT
     """)
-    choice = int(input("PLEASE ENTER A NUMBER BETWEEN 1 - 9: \n"))
+    choice = int(input("PLEASE ENTER A NUMBER BETWEEN 1 - 8: \n"))
     return choice
-
 
 def getAddNum():
     global val_in_mem
@@ -39,7 +33,6 @@ def getAddNum():
 
     return a, b
 
-
 def getSubNum():
     global val_in_mem
     a = input("Enter the first number that you want to subtract: \n")
@@ -53,7 +46,6 @@ def getSubNum():
     else:
         b = float(b)
     return a, b
-
 
 def getMultiNum():
     global val_in_mem
@@ -69,7 +61,6 @@ def getMultiNum():
         b = float(b)
     return a, b
 
-
 def getDivNum():
     global val_in_mem
     a = input("Enter the first number that you want to divide: \n")
@@ -84,7 +75,6 @@ def getDivNum():
         b = float(b)
     return a, b
 
-
 def getSquared():
     global val_in_mem
     a = input("Enter the number that you want to square: \n")
@@ -94,7 +84,6 @@ def getSquared():
         a = float(a)
     return a
 
-
 def getRoot():
     global val_in_mem
     a = input("Enter the number that you want to find the square root of : \n")
@@ -103,7 +92,6 @@ def getRoot():
     else:
         a = float(a)
     return a
-
 
 def getExponent():
     global val_in_mem
@@ -119,8 +107,8 @@ def getExponent():
         b = float(b)
     return a, b
 
-
 def switchDisplayMode(user_choice, prev_mode):
+    global display_modes
     if user_choice == 'default':
         disp_mode = display_modes[prev_mode]
     else:
@@ -128,29 +116,21 @@ def switchDisplayMode(user_choice, prev_mode):
     return disp_mode
 
 
-def pie(label, slices):
-    plabel = label
-    pslices = slices
-    plt.pie(pslices, labels=plabel, startangle=90, shadow=True, explode=(0, 0, 0.1, 0), radius=1.5,
-            autopct='%1.2f%%')
-    plt.pyplot.legend()
-    plt.pyplot.show()
-
 def displayResult(x: float):
     print(f"Output: {x}", "\n")
 
+
+
 def performCalcLoop(calc):
     global val_in_mem
-    subject_list = []
-    percent_list = []
     disp_prev_num = 0
-    disp_ask = input("Set a display mode?\n")
+    disp_ask = input("Set a display mode? y or n\n")
     if disp_ask == '' or disp_ask == 'n':
         disp_inpt = 'default'
     elif disp_ask == 'y':
-        disp_inpt = input("Which mode" + str(display_modes))
-    choice = ""  # Set choice to a value so it can meet the condition below and start the loop
-    while choice != 9:
+        disp_inpt = input("Which mode\n" + str(display_modes) + '\n')
+    choice = "" #Set choice to a value so it can meet the condition below and start the loop
+    while choice != 8:
         if disp_prev_num > 3:
             disp_prev_num = 0
         disp_mode = switchDisplayMode(disp_inpt, disp_prev_num)
@@ -163,28 +143,34 @@ def performCalcLoop(calc):
         elif choice == 2:
             print("Subtract")
             a, b = getSubNum()
-            displayResult(calc.sub(a, b, disp_mode))
+            result = calc.sub(a, b, disp_mode)
+            displayResult(result)
         elif choice == 3:
             print("Multiply")
             a, b = getMultiNum()
-            displayResult(calc.mul(a, b, disp_mode))
+            result = calc.mul(a, b, disp_mode)
+            displayResult(result)
         elif choice == 4:
             print("Divide")
             a, b = getDivNum()
-            displayResult(calc.div(a, b, disp_mode))
+            result = calc.div(a, b, disp_mode)
+            displayResult(result)
         elif choice == 5:
             print("Square")
-            a, b = getSquared()
-            displayResult(calc.squ(a, disp_mode))
+            a = getSquared()
+            result = calc.squ(a, disp_mode)
+            displayResult(result)
         elif choice == 6:
             print("Square Root")
             a = getRoot()
-            displayResult(calc.roo(a, disp_mode))
+            result = calc.roo(a, disp_mode)
+            displayResult(result)
         elif choice == 7:
             print("Exponent")
             a, b = getExponent()
-            displayResult(calc.exp(a, b, disp_mode))
-        elif choice == 9:
+            result = calc.exp(a, b, disp_mode)
+            displayResult(result)
+        elif choice == 8:
             print("Calculator is now OFF")
         # elif choice == 8:
         #     print("Lets make a pie chart!")
@@ -200,16 +186,21 @@ def performCalcLoop(calc):
         #     print("Please wait....creating pie")
         #     pie(subject_list, percent_list)
         else:
-            print("Invalid choice: Please enter a number between 1 - 9\n\n")
+            print("Invalid choice: Please enter a number between 1 - 8\n")
         disp_prev_num += 1
         user_inpt = input()
         if user_inpt == 'm+':
-            val_in_mem = result
-            print(result)
+            if disp_mode == 'octal':
+                val_in_mem = int(result,8)
+            elif disp_mode == 'binary':
+                val_in_mem = int(result,2)
+            elif disp_mode == 'hexadecimal':
+                val_in_mem = int(result,16)
+            elif disp_mode == 'decimal':
+                val_in_mem = result
+        print(val_in_mem)
         if user_inpt == 'mc':
             val_in_mem = 0
-
-
 # main start
 def main():
     calc = Calculator()
