@@ -172,7 +172,7 @@ def performCalcLoop(calc):
             displayResult(result)
         elif choice == 5:
             print("Square")
-            a, b = getSquared()
+            a = getSquared()
             result = calc.squ(a, disp_mode)
             displayResult(result)
         elif choice == 6:
