@@ -6,27 +6,29 @@ class Calculator:
         pass
 
     def add(self, x, y):
-        return x + y
-
-    # def add(self, x, y):
-    #     return x + y
+        answer = x + y
+        return float(answer)
 
     def sub(self, x, y):
-        return x - y
+        answer = x - y
+        return float(answer)
 
     def mul(self, x, y):
-        return x * y
+        answer = x * y
+        return float(answer)
 
     def div(self, x, y):
-        return x / y
+        answer = x / y
+        return float(answer)
 
-    def squ(self, x, y):
-        return x ** y
+    def squ(self, x):
+        answer = x**x
+        return float(answer)
 
     def roo(self, x):
-        return math.sqrt(x)
+        answer = math.sqrt(x)
+        return float(answer)
 
-    def exp(self, x, y):
-        return x ** y
-
-# add lots more methods to this calculator class.
+    def exp(self,x,y):
+        answer = x ** y
+        return float(answer)
