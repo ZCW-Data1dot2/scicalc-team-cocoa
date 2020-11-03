@@ -1,5 +1,8 @@
 #import matplotlib.pyplot as plt
 from calculator import Calculator
+from getValue import Value
+
+
 display_modes = ['decimal', 'binary', 'octal', 'hexadecimal']
 val_in_mem = 0
 def calcMenu():
@@ -18,94 +21,17 @@ def calcMenu():
     choice = int(input("PLEASE ENTER A NUMBER BETWEEN 1 - 8: \n"))
     return choice
 
-def getAddNum():
-    global val_in_mem
-    a = input("Enter the first number that you want to add: \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
+def display(int_answer, disp_mode):
+    if disp_mode == 'binary':
+        return bin(int_answer)
+    elif disp_mode == 'hexadecimal':
+        return hex(int_answer)
+    elif disp_mode == 'octal':
+        return oct(int_answer)
+    elif disp_mode == 'decimal':
+        return float(int_answer)
     else:
-        a = float(a)
-    b = input("Enter the second number that you want to add: \n")
-    if b == 'mrc':
-        b = float(val_in_mem)
-    else:
-        b = float(b)
-
-    return a, b
-
-def getSubNum():
-    global val_in_mem
-    a = input("Enter the first number that you want to subtract: \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    b = input("Enter the second number that you want to subtract: \n")
-    if b == 'mrc':
-        b = float(val_in_mem)
-    else:
-        b = float(b)
-    return a, b
-
-def getMultiNum():
-    global val_in_mem
-    a = input("Enter the first number that you want to multiply: \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    b = input("Enter the second number that you want to multiply: \n")
-    if b == 'mrc':
-        b = float(val_in_mem)
-    else:
-        b = float(b)
-    return a, b
-
-def getDivNum():
-    global val_in_mem
-    a = input("Enter the first number that you want to divide: \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    b = input("Enter the second number that you want to divide: \n")
-    if b == 'mrc':
-        b = float(val_in_mem)
-    else:
-        b = float(b)
-    return a, b
-
-def getSquared():
-    global val_in_mem
-    a = input("Enter the number that you want to square: \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    return a
-
-def getRoot():
-    global val_in_mem
-    a = input("Enter the number that you want to find the square root of : \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    return a
-
-def getExponent():
-    global val_in_mem
-    a = input("Enter the base number : \n")
-    if a == 'mrc':
-        a = float(val_in_mem)
-    else:
-        a = float(a)
-    b = input("Enter the exponent number : \n")
-    if b == 'mrc':
-        b = float(val_in_mem)
-    else:
-        b = float(b)
-    return a, b
+        return float(int_answer)
 
 def switchDisplayMode(user_choice, prev_mode):
     global display_modes
@@ -123,6 +49,7 @@ def displayResult(x: float):
 
 def performCalcLoop(calc):
     global val_in_mem
+    value = Value()
     disp_prev_num = 0
     disp_ask = input("Set a display mode? y or n\n")
     if disp_ask == '' or disp_ask == 'n':
@@ -137,41 +64,47 @@ def performCalcLoop(calc):
         choice = calcMenu()
         if choice == 1:
             print("Add")
-            a, b = getAddNum()
-            result = calc.add(a, b, disp_mode)
-            displayResult(result)
+            a, b = value.getAddNum()
+            result = calc.add(a, b)
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 2:
             print("Subtract")
-            a, b = getSubNum()
-            result = calc.sub(a, b, disp_mode)
-            displayResult(result)
+            a, b = value.getSubNum()
+            result = calc.sub(a, b)
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 3:
             print("Multiply")
-            a, b = getMultiNum()
-            result = calc.mul(a, b, disp_mode)
-            displayResult(result)
+            a, b = value.getMultiNum()
+            result = calc.mul(a, b)
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 4:
             print("Divide")
-            a, b = getDivNum()
-            result = calc.div(a, b, disp_mode)
-            displayResult(result)
+            a, b = value.getDivNum()
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 5:
             print("Square")
-            a = getSquared()
-            result = calc.squ(a, disp_mode)
-            displayResult(result)
+            a = value.getSquared()
+            result = calc.squ(a)
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 6:
             print("Square Root")
-            a = getRoot()
-            result = calc.roo(a, disp_mode)
-            displayResult(result)
+            a = value.getRoot()
+            result = calc.roo(a)
+            dResult = display(result, disp_inpt)
+            displayResult(dResult)
         elif choice == 7:
             print("Exponent")
-            a, b = getExponent()
-            result = calc.exp(a, b, disp_mode)
+            a, b = value.getExponent()
+            result = calc.exp(a, b)
             displayResult(result)
         elif choice == 8:
             print("Calculator is now OFF")
+            #sys.exit(0)
         # elif choice == 8:
         #     print("Lets make a pie chart!")
         #     subcount = int(input("How many subjects are on your pie chart?\n"))
@@ -204,17 +137,7 @@ def performCalcLoop(calc):
 # main start
 def main():
     calc = Calculator()
-    performCalcLoop(calc)
-    print("Done Calculating.")
-
-
-if __name__ == '__main__':
-    main()
-
-
-# main start
-def main():
-    calc = Calculator()
+    value = Value()
     performCalcLoop(calc)
     print("Done Calculating.")
 
