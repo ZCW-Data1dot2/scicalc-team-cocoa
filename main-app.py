@@ -83,8 +83,12 @@ def performCalcLoop(calc):
         elif choice == 4:
             print("Divide")
             a, b = value.getDivNum()
-            dResult = display(result, disp_inpt)
-            displayResult(dResult)
+            result = calc.div(a,b)
+            if result == int:
+                dResult = display(result, disp_inpt)
+                displayResult(dResult)
+            else:
+                print("Err")
         elif choice == 5:
             print("Square")
             a = value.getSquared()

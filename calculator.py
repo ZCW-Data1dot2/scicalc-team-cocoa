@@ -18,8 +18,11 @@ class Calculator:
         return float(answer)
 
     def div(self, x, y):
-        answer = x / y
-        return float(answer)
+        if y == 0:
+            return "Err"
+        else:
+            answer = x / y
+            return float(answer)
 
     def squ(self, x):
         answer = x**x
