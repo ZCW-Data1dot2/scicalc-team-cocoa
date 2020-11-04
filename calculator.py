@@ -32,3 +32,26 @@ class Calculator:
     def exp(self,x,y):
         answer = x ** y
         return float(answer)
+
+    def sin(self, x):
+        answer = math.sin(x)
+        return answer
+
+    def inverse_sin(self, x):
+        answer = math.asin(x)
+        return answer
+
+    def cosine(self, x):
+        answer = math.cos()
+        return answer
+
+    def inverse_cosine(self):
+        answer = math.acos(x)
+
+    def tangent(self, x):
+        answer = math.tan(x)
+        return answer
+
+    def invenser_tangent(self):
+        answer = math.atan(x)
+        return answer
